@@ -20,17 +20,24 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PostService {
 
     private final PostRepository postRepository;
 
-    @Transactional
     public void createPost(@RequestBody CreatePostRequestDto createPostRequestDto, Member member) {
         postRepository.save(createPostRequestDto.toEntity(member));
     }
 
-    public Page<SimplePostInfoResponseDto> getSimplePostInfoList(Pageable pageable, Member member) {
+    public Page<SimplePostInfoResponseDto> getSimplePostInfoList(Pageable pageable) {
+        return new PageImpl<>(postRepository.findAll(pageable).get()
+                .map(SimplePostInfoResponseDto::toDto)
+                .collect(Collectors.toList()),
+                pageable,
+                postRepository.findAll(pageable).getTotalElements()
+        );
+    }
+
+    public Page<SimplePostInfoResponseDto> getMemberSimplePostInfoList(Pageable pageable, Member member) {
         return new PageImpl<>(postRepository.findPostsByMember(pageable, member).get()
                 .map(SimplePostInfoResponseDto::toDto)
                 .collect(Collectors.toList()),
@@ -48,12 +55,11 @@ public class PostService {
                 editPostInfoRequestDto.getContent(), editPostInfoRequestDto.getPlace());
     }
 
-    @Transactional
     public void deletePost(Long postId) {
         postRepository.delete(findPost(postId));
     }
 
-    public Post findPost(Long postId) {
+    private Post findPost(Long postId) {
         return postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
     }
 }

@@ -21,20 +21,20 @@ public class MemberController {
     private final MemberService memberService;
 
     @ResponseStatus(OK)
-    @GetMapping("")
+    @GetMapping()
     public Response getMemberInfo(Long memberId) {
         return success(SUCCESS_TO_GET_MEMBER, memberService.getMemberInfo(memberId));
     }
 
     @ResponseStatus(OK)
-    @PatchMapping("")
+    @PatchMapping()
     public Response editMemberInfo(@RequestBody EditMemberInfoRequestDto editMemberInfoRequestDto, Long memberId) {
         memberService.editMemberInfo(editMemberInfoRequestDto, memberId);
         return success(SUCCESS_TO_EDIT_MEMBER);
     }
 
     @ResponseStatus(OK)
-    @DeleteMapping("")
+    @DeleteMapping()
     public Response deleteMember(Long memberId) {
         memberService.deleteMember(memberId);
         return success(SUCCESS_TO_DELETE_MEMBER);

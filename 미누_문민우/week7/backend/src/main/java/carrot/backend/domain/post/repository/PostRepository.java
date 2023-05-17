@@ -7,8 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+import javax.validation.constraints.NotNull;
 
+public interface PostRepository extends JpaRepository<Post, Long> {
+    @NotNull
+    Page<Post> findAll(@NotNull Pageable pageable);
     @EntityGraph(attributePaths = {"member"})
-    Page<Post> findPostsByMember(Pageable pageable, Member member);
+    @NotNull
+    Page<Post> findPostsByMember(@NotNull Pageable pageable, Member member);
 }

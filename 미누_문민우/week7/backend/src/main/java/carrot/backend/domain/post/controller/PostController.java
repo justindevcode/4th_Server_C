@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static carrot.backend.response.Response.success;
 import static carrot.backend.response.SuccessMessage.*;
 import static org.springframework.http.HttpStatus.OK;
@@ -25,7 +27,7 @@ public class PostController {
 
     @ResponseStatus(OK)
     @PostMapping()
-    public Response createPost(@RequestBody CreatePostRequestDto createPostRequestDto, Long memberId) {
+    public Response createPost(@Valid @RequestBody CreatePostRequestDto createPostRequestDto, Long memberId) {
         postService.createPost(createPostRequestDto, memberService.findMember(memberId));
         return success(SUCCESS_TO_CREATE_POST);
     }

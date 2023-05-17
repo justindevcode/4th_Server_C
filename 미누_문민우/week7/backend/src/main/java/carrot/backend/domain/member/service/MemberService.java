@@ -1,5 +1,6 @@
 package carrot.backend.domain.member.service;
 
+import carrot.backend.domain.member.dto.CreateMemberRequestDto;
 import carrot.backend.domain.member.dto.EditMemberInfoRequestDto;
 import carrot.backend.domain.member.dto.MemberInfoResponseDto;
 import carrot.backend.domain.member.entity.Member;
@@ -14,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    public void createMember(CreateMemberRequestDto createMemberRequestDto) {
+        memberRepository.save(createMemberRequestDto.toEntity());
+    }
 
     public MemberInfoResponseDto getMemberInfo(Long memberId) {
         return MemberInfoResponseDto.toDto(findMember(memberId));

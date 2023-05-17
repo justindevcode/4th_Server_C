@@ -1,5 +1,6 @@
 package carrot.backend.domain.member.controller;
 
+import carrot.backend.domain.member.dto.CreateMemberRequestDto;
 import carrot.backend.domain.member.dto.EditMemberInfoRequestDto;
 import carrot.backend.domain.member.service.MemberService;
 import carrot.backend.response.Response;
@@ -7,6 +8,8 @@ import carrot.backend.response.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import static carrot.backend.response.Response.*;
 import static carrot.backend.response.SuccessMessage.*;
@@ -19,6 +22,13 @@ import static org.springframework.http.HttpStatus.OK;
 public class MemberController {
 
     private final MemberService memberService;
+
+    @ResponseStatus(OK)
+    @PostMapping()
+    public Response createMember(@Valid @RequestBody CreateMemberRequestDto createMemberRequestDto) {
+        memberService.createMember(createMemberRequestDto);
+        return success(SUCCESS_TO_CREATE_MEMBER);
+    }
 
     @ResponseStatus(OK)
     @GetMapping()

@@ -52,7 +52,7 @@ public class PostController {
 
     @ResponseStatus(OK)
     @PatchMapping()
-    public Response editPostInfo(@RequestBody EditPostInfoRequestDto editPostInfoRequestDto, Long postId) {
+    public Response editPostInfo(@Valid @RequestBody EditPostInfoRequestDto editPostInfoRequestDto, Long postId) {
         postService.editPostInfo(editPostInfoRequestDto, postId);
         return success(SUCCESS_TO_EDIT_POST);
     }

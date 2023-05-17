@@ -38,7 +38,7 @@ public class MemberController {
 
     @ResponseStatus(OK)
     @PatchMapping()
-    public Response editMemberInfo(@RequestBody EditMemberInfoRequestDto editMemberInfoRequestDto, Long memberId) {
+    public Response editMemberInfo(@Valid @RequestBody EditMemberInfoRequestDto editMemberInfoRequestDto, Long memberId) {
         memberService.editMemberInfo(editMemberInfoRequestDto, memberId);
         return success(SUCCESS_TO_EDIT_MEMBER);
     }

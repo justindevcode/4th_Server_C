@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    restart: always
+    ports:
+      - "${APP_LOCAL_PORT}:${APP_SERVER_PORT}"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    env_file:
+      - .env

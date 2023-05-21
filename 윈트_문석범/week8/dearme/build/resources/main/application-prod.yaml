@@ -1,0 +1,37 @@
+server:
+  port : 5000
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+  jpa:
+    database: mysql
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://${rds.hostname}:${rds.port}/${rds.db.name}
+    username: ${rds.username}
+    password: ${rds.password}
+
+file:
+  dir: "build/resources/main/file/"
+
+
+cloud:
+  aws:
+    s3:
+      bucket: dearmeimage
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWP5XMIAF2HJHRFTB
+      secretKey: 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
+
+

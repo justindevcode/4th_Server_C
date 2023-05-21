@@ -1,6 +1,8 @@
 package carrot.backend.domain.member.dto;
 
+import carrot.backend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,9 +11,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class EditMemberInfoRequestDto {
+@NoArgsConstructor
+@Builder
+public class CreateMemberRequestDto {
 
     @NotBlank(message = "닉네임을 입력해주세요.")
     @Size(min = 2, message = "닉네임이 너무 짧습니다.")
@@ -23,4 +26,12 @@ public class EditMemberInfoRequestDto {
 
     @NotBlank(message = "위치 정보를 입력해주세요.")
     private String location;
+
+    public Member toEntity() {
+        return Member.builder()
+                .nickname(this.nickname)
+                .phone(this.phone)
+                .location(this.location)
+                .build();
+    }
 }

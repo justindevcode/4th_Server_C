@@ -1,0 +1,21 @@
+branch-defaults:
+  default:
+    environment: PROD-DEARME-API
+environment-defaults:
+  PROD-DEARME-API:
+    branch: null
+    repository: null
+global:
+  application_name: dearme-backend
+  default_ec2_keyname: null
+  default_platform: Corretto 11 running on 64bit Amazon Linux 2
+  default_region: ap-northeast-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  sc: null
+  workspace_type: Application
+deploy:
+  artifact: build/libs/dearme-0.0.1-SNAPSHOT.jar

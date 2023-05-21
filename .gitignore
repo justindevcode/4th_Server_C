@@ -1,0 +1,11 @@
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+.idea
+.idea/*.xml
+*.iml
+out
+gen
+build
+rebel.xml

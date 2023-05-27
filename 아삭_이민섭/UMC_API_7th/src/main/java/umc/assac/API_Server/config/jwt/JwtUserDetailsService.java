@@ -12,6 +12,8 @@ import umc.assac.API_Server.repository.user.UserRepository;
 
 import java.util.Collections;
 
+// AuthenticationManager의 authenticate() 메소드가 실행될 경우,
+// loadUserByUsername 메소드를 통하여 존재하는 사용자인지 확인
 @Service
 @RequiredArgsConstructor
 public class JwtUserDetailsService implements UserDetailsService {

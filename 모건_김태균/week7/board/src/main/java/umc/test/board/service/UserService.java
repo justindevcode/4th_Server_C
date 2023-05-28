@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
 
+
     @Transactional
     public Long save(UserCreateRequestDto requestDto){
         return userRepository.save(requestDto.toEntity()).getId();

@@ -1,0 +1,35 @@
+spring:
+  # Redis
+  redis:
+    host: localhost
+    port: 6379
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+file:
+  dir: "src\\main\\resources\\file\\"
+#  dir: C:\Users\aa\Desktop\my github\DearMeClassProject\dearme\src\main\resources\file\
+
+cloud:
+  aws:
+    s3:
+      bucket: dearmeimage
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
+      accessKey: AKIAWP5XMIAF2HJHRFTB
+      secretKey: 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
+
+
+# JWT
+jwt:
+  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHN
+
+
+
+

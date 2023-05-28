@@ -1,4 +1,4 @@
-package carrot.backend.domain.member.dto;
+package carrot.backend.domain.member.dto.member;
 
 import carrot.backend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;

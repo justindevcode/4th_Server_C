@@ -24,9 +24,13 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
+    private String username;
+    private String password;
     private String nickname;
     private String phone;
     private String location;
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     public void editMember(String nickname, String phone, String location) {
         this.nickname = nickname;

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,13 +78,12 @@ public class BoardController {
     @ApiOperation(value = "게시글 생성", notes = "게시글을 생성하는 로직")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "categoryId", value = "특정 카테고리를 식별하기 위한 PK값"),
-            @ApiImplicitParam(name = "userId", value = "특정 사용자를 식별하기 위한 PK값"),
             @ApiImplicitParam(name = "createDto", value = "게시글 생성에 필요한 데이터를 전달하는 Dto")
     })
     public void makeBoard(@RequestParam("categoryId") Long categoryId,
-                          @RequestParam("userId") Long userId,
                           @RequestBody @Valid BoardCreateDto createDto) {
-        User user = getUser(userId);
+        Authentication authentication = getAuthentication();
+        User user = getUser(authentication);
         boardService.makeBoard(createDto, categoryId, user);
     }
 
@@ -91,14 +92,13 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "게시글 수정", notes = "특정 게시글을 수정하는 로직")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "특정 사용자를 식별하기 위한 PK값"),
             @ApiImplicitParam(name = "id", value = "특정 게시글을 식별하기 위한 PK값"),
             @ApiImplicitParam(name = "editDto", value = "게시글 수정에 필요한 데이터를 전달하는 Dto")
     })
-    public void editBoard(@RequestParam("userId") Long userId,
-                          @PathVariable Long id,
+    public void editBoard(@PathVariable Long id,
                           @RequestBody @Valid BoardEditDto editDto) {
-        User user = getUser(userId);
+        Authentication authentication = getAuthentication();
+        User user = getUser(authentication);
         boardService.editBoard(editDto, id, user);
     }
 
@@ -106,13 +106,10 @@ public class BoardController {
     @DeleteMapping("/boards/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "게시글 삭제", notes = "특정 게시글을 삭제하는 로직")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "특정 사용자를 식별하기 위한 PK값"),
-            @ApiImplicitParam(name = "id", value = "특정 게시글을 식별하기 위한 PK값")
-    })
-    public void deleteBoard(@RequestParam("userId") Long userId,
-                            @PathVariable Long id) {
-        User user = getUser(userId);
+    @ApiImplicitParam(name = "id", value = "특정 게시글을 식별하기 위한 PK값")
+    public void deleteBoard(@PathVariable Long id) {
+        Authentication authentication = getAuthentication();
+        User user = getUser(authentication);
         boardService.deleteBoard(id, user);
     }
 
@@ -125,9 +122,14 @@ public class BoardController {
         boardService.reserveBoard(boardId);
     }
 
-    // User Entity의 PK값을 통하여 사용자의 정보를 가져오는 로직
-    public User getUser(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(UserNotFoundException::new);
+    // Authentication 객체를 저장하고 있는 SecurityContextHolder로부터 Authentication 객체를 가져오는 로직
+    public Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    // JWT 토큰 내부에 담긴 내용을 통하여 사용자 정보를 가져오는 로직
+    public User getUser(Authentication authentication) {
+        String username = authentication.getName();
+        return userRepository.findUserByUsername(username).orElseThrow(UserNotFoundException::new);
     }
 }

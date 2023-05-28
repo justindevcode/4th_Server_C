@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import umc.assac.API_Server.exception.board.BoardNotFoundException;
 import umc.assac.API_Server.exception.board.BoardReservedException;
+import umc.assac.API_Server.exception.token.TokenExpiredException;
 import umc.assac.API_Server.exception.user.*;
 import umc.assac.API_Server.exception.category.CategoryNotFoundException;
 import umc.assac.API_Server.exception.comment.CommentNotFoundException;
@@ -83,5 +84,11 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response commentNotFoundException() {
         return Response.failure(404, "해당 정보에 해당하는 댓글을 찾지 못하였습니다.");
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response tokenExpiredException() {
+        return Response.failure(400, "이미 만료된 토큰입니다.");
     }
 }

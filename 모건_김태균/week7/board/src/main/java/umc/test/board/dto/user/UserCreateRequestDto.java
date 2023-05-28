@@ -10,17 +10,23 @@ import umc.test.board.domain.User;
 @Getter
 @NoArgsConstructor
 public class UserCreateRequestDto {
+    private String loginID;
+    private String password;
     private String name;
     private int age;
 
     @Builder
-    public UserCreateRequestDto(String name, int age) {
+    public UserCreateRequestDto(String loginID, String password,String name, int age) {
+        this.loginID=loginID;
+        this.password=password;
         this.name = name;
         this.age = age;
     }
 
     public User toEntity() {
         return User.builder()
+                .loginID(loginID)
+                .password(password)
                 .name(name)
                 .age(age)
                 .build();

@@ -17,6 +17,12 @@ public class User {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
+    @Column
+    private String loginID;
+
+    @Column
+    private String password;
+
     @Column(length = 30, nullable = false)
     private String name;
 
@@ -24,7 +30,9 @@ public class User {
     private int age;
     //빌더
     @Builder
-    public User(String name, int age) {
+    public User(String loginID, String password, String name, int age) {
+        this.loginID=loginID;
+        this.password=password;
         this.name = name;
         this.age = age;
     }

@@ -81,8 +81,8 @@ public class UserService {
         String username = authentication.getName();
 
         redisService.validateToken(username, refreshToken);
-
         TokenDto token = tokenProvider.createToken(authentication);
+        redisService.setValue(username, token.getRefreshToken());
 
         return TokenResponseDto.toDto(token);
     }

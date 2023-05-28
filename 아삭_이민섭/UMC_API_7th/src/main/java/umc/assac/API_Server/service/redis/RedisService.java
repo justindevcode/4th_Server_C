@@ -10,7 +10,7 @@ import umc.assac.API_Server.exception.token.TokenExpiredException;
 @RequiredArgsConstructor
 public class RedisService {
 
-    private final RedisTemplate<String, String> template;
+    private final RedisTemplate template;
 
     // Redis에 데이터를 저장
     public void setValue(String key, String value) {

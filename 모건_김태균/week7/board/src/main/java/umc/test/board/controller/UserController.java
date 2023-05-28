@@ -2,7 +2,6 @@ package umc.test.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import umc.test.board.domain.User;
 import umc.test.board.dto.user.UserCreateRequestDto;
 import umc.test.board.dto.user.UserListResponseDto;
 import umc.test.board.dto.user.UserResponseDto;
@@ -11,10 +10,15 @@ import umc.test.board.service.UserService;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 @RestController
 public class UserController {
     private final UserService userService;
+    //private final UserAuthService userAuthService;
+
+
+
 
     // 사용자 등록
     @PostMapping("/user")

@@ -7,4 +7,7 @@ spring:
       hibernate:
         ddl-auto: create
   profiles:
-    include: API-KEY
+    include: API-KEY,secret
+  jwt:
+    secret:
+      lasdkfjadkfj@343kjsdfklj!dlsdjfospvckjafe9r$%#$@dskjfkjcvxkjfla!!@dskjfksjfasdfjjk23490e@#@fdsjal!

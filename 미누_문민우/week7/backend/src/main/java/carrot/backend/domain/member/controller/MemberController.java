@@ -1,12 +1,13 @@
 package carrot.backend.domain.member.controller;
 
-import carrot.backend.domain.member.dto.EditMemberInfoRequestDto;
+import carrot.backend.domain.member.dto.member.EditMemberInfoRequestDto;
 import carrot.backend.domain.member.service.MemberService;
 import carrot.backend.response.Response;
-import carrot.backend.response.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 import static carrot.backend.response.Response.*;
 import static carrot.backend.response.SuccessMessage.*;
@@ -21,20 +22,20 @@ public class MemberController {
     private final MemberService memberService;
 
     @ResponseStatus(OK)
-    @GetMapping("")
+    @GetMapping()
     public Response getMemberInfo(Long memberId) {
         return success(SUCCESS_TO_GET_MEMBER, memberService.getMemberInfo(memberId));
     }
 
     @ResponseStatus(OK)
-    @PatchMapping("")
-    public Response editMemberInfo(@RequestBody EditMemberInfoRequestDto editMemberInfoRequestDto, Long memberId) {
+    @PatchMapping()
+    public Response editMemberInfo(@Valid @RequestBody EditMemberInfoRequestDto editMemberInfoRequestDto, Long memberId) {
         memberService.editMemberInfo(editMemberInfoRequestDto, memberId);
         return success(SUCCESS_TO_EDIT_MEMBER);
     }
 
     @ResponseStatus(OK)
-    @DeleteMapping("")
+    @DeleteMapping()
     public Response deleteMember(Long memberId) {
         memberService.deleteMember(memberId);
         return success(SUCCESS_TO_DELETE_MEMBER);

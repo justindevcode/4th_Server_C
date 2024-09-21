@@ -1,9 +1,6 @@
 package carrot.backend.exception;
 
-import carrot.backend.exception.situation.CannotConvertHelperException;
-import carrot.backend.exception.situation.MemberNotEqualsException;
-import carrot.backend.exception.situation.MemberNotFoundException;
-import carrot.backend.exception.situation.PostNotFoundException;
+import carrot.backend.exception.situation.*;
 import carrot.backend.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
@@ -51,6 +48,22 @@ public class ExceptionAdvice {
     @ResponseStatus(BAD_REQUEST)
     public Response bindException(BindException e) {
         return failure(BAD_REQUEST, Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage());
+    }
+
+    // 409 응답
+    // username 중복
+    @ExceptionHandler(UsernameAlreadyExistsException.class)
+    @ResponseStatus(CONFLICT)
+    public Response memberEmailAlreadyExistsException(UsernameAlreadyExistsException e) {
+        return failure(CONFLICT, e.getMessage() + "은 중복된 아이디 입니다.");
+    }
+
+    // 401 응답
+    // 아이디 혹은 비밀번호 오류시 발생
+    @ExceptionHandler(LoginFailureException.class)
+    @ResponseStatus(UNAUTHORIZED)
+    public Response loginFailureException() {
+        return failure(UNAUTHORIZED, "로그인에 실패하였습니다.");
     }
 
     // 401 응답

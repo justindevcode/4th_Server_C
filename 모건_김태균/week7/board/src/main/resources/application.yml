@@ -6,3 +6,6 @@ spring:
     jpa:
       hibernate:
         ddl-auto: create
+  profiles:
+    include: API-KEY,secret
+ 

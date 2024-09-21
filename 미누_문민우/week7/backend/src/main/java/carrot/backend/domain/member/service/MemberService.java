@@ -1,7 +1,7 @@
 package carrot.backend.domain.member.service;
 
-import carrot.backend.domain.member.dto.EditMemberInfoRequestDto;
-import carrot.backend.domain.member.dto.MemberInfoResponseDto;
+import carrot.backend.domain.member.dto.member.EditMemberInfoRequestDto;
+import carrot.backend.domain.member.dto.member.MemberInfoResponseDto;
 import carrot.backend.domain.member.entity.Member;
 import carrot.backend.domain.member.repository.MemberRepository;
 import carrot.backend.exception.situation.MemberNotFoundException;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;

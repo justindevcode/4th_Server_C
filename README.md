@@ -1,6 +1,8 @@
 # 💚 UMC MJU 4th Server C-자연
 1학기동안 자바의 기초부터 스프링, 네트워크와 클라우드 서버까지  1학기간 스터디하며 학습하였습니다!
 
+### Period  : 2023/03 ~ 2023/06
+
 # :page_facing_up: Souce Code
 https://github.com/UMC-MJU/4th_Server_C  
 
